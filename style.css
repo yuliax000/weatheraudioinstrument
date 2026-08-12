@@ -1,34 +1,42 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 
-body {
-    min-height: 100vh;
-}
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Comic+Relief:wght@400;700&display=swap');
 
-body,
-html {
-    margin: 0;
-    padding: 0;
-}
-h1, h2, h3, h4, h5, h6 {
-    text-wrap: balance;
-    max-width: 80rch;
-}
-
-/*readability based on WCAG*/
-/*https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation.html*/
-p, li, figcaption {
-    max-width: 80rch;
+/*Where we store the custom variables*/
+:root {
+    --color01:white;
+    --color02:black;
+    --color03:lightgrey;
+    --color04:darkgrey;
+    --border:  0.25rem double var(--color03);
 }
 
 
-img,
-picture,
-svg,
-video {
-    display: block;
-    max-width: 100%;
+
+@media(prefers-color-scheme: dark) {
+    :root {
+        --color01:black;
+        --color02:white;
+        --color03:darkgrey;
+        --color04:lightgrey;
+    }
+}
+
+body{
+    font-family: "Comic Relief", system-ui;
+    background-color: var(--color01);
+    color: var(--color02);
+
+}
+
+dialog[open] {
+    background-color: var(--color01);
+    color: var(--color02);
+    margin: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: var(--border);
+
+
 }
