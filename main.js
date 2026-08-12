@@ -14,7 +14,19 @@ introDialog.showModal();
 //close the dialog
 introDialogClose.addEventListener('click', function closeIntroDialog(){
     introDialog.close();
+
 });
+
+// whenever the dialog is closed, run toneInit
+introDialog.addEventListener("close", toneInit);
+
+//////Tone
+// run to setup our audio system
+function toneInit(){
+    synth.connect(Tone.Destination)
+}
+
+
 
 
 
@@ -22,10 +34,10 @@ introDialogClose.addEventListener('click', function closeIntroDialog(){
 const testButton = document.getElementById('testButton');
 
 // init synth
-const synth = new Tone.Synth().toDestination();
-
+const synth = new Tone.Synth();
 //do something when the button is clicked
 testButton.addEventListener('click', playNote);
+
 
 
 //function that runs when button is clicked
