@@ -75,3 +75,11 @@ dialog[open] {
     align-items: center;
     border: 1px solid black;
 }
+
+/*create style of falling pattern*/
+.fallingPattern {
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    font-size: 2rem
+}

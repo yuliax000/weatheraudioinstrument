@@ -8,40 +8,57 @@ const introDialogClose = document.getElementById('introButtonClose');
 // console.log(introDialog);
 
 
+//find weather elements
+const sun= document.getElementById('sunContainer');
+const rain = document.getElementById('rainContainer');
+const thunder = document.getElementById('thunderContainer');
+const wind = document.getElementById('windContainer');
+const drum = document.getElementById('drumContainer');
+
+// create synth
+const synth = new Tone.Synth().toDestination();
+
+
+
+
+
+
 ////// Dialog
 // open the dialog
 introDialog.showModal();
 //close the dialog
-introDialogClose.addEventListener('click', function closeIntroDialog(){
+introDialogClose.addEventListener('click', async function (){
+    await Tone.start();
     introDialog.close();
-
 });
 
+
 // whenever the dialog is closed, run toneInit
-introDialog.addEventListener("close", toneInit);
-
-//////Tone
-// run to setup our audio system
-function toneInit(){
-    synth.connect(Tone.Destination)
-}
-
-
+// introDialog.addEventListener("close", toneInit);
+//
+// //////Tone
+// // run to setup our audio system
+// function toneInit(){
+//     synth.connect(Tone.Destination)
+// }
 
 
-
-// find test button
-const testButton = document.getElementById('testButton');
-
-// init synth
-const synth = new Tone.Synth();
-//do something when the button is clicked
-testButton.addEventListener('click', playNote);
-
-
-
-//function that runs when button is clicked
-function playNote(){
-    //play a note for a duration
+sun.addEventListener ("click", function() {
     synth.triggerAttackRelease("C4", "8n");
-}
+});
+
+rain.addEventListener ("click", function() {
+    synth.triggerAttackRelease("E4", "8n");
+});
+
+thunder.addEventListener("click", function() {
+    synth.triggerAttackRelease("G2", "4n");
+});
+
+wind.addEventListener("click", function() {
+    synth.triggerAttackRelease("A2", "2n");
+});
+
+drum.addEventListener("click", function (){
+   synth.triggerAttackRelease("C2", "16n");
+})
