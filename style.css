@@ -1,11 +1,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Comic+Relief:wght@400;700&display=swap');
 
+*{
+    box-sizing: border-box;
+}
+
+
 /*Where we store the custom variables*/
 :root {
-    --color01:#91c4ff;
+    --color01:white;
     --color02:black;
-    --color03:white;
+    --color03:lightgrey;
     --color04:darkgrey;
     --border:  0.25rem double var(--color03);
 }
@@ -25,8 +30,31 @@ body{
     font-family: "Comic Relief", system-ui;
     background-color: var(--color01);
     color: var(--color02);
-
+    margin: 0;
+    height: 100vh;
 }
+
+
+main{
+    margin: 0;
+    height: 100vh;
+}
+.weatherContainer{
+    display: flex;
+    height: 80%;
+}
+
+.weather {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid black;
+}
+
+
+
 
 dialog[open] {
     background-color: var(--color01);
@@ -37,4 +65,13 @@ dialog[open] {
     flex-direction: column;
     align-items: center;
     border: var(--border);
+}
+
+.drumContainer {
+    height: 20%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
 }
