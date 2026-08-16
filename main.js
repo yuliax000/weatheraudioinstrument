@@ -42,7 +42,7 @@ introDialogClose.addEventListener('click', async function (){
 //     synth.connect(Tone.Destination)
 // }
 
-
+// add click events to weather elements
 sun.addEventListener ("click", function() {
     synth.triggerAttackRelease("C4", "8n");
 });
