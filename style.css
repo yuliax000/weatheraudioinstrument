@@ -51,6 +51,8 @@ main{
     align-items: center;
 
     border: 1px solid black;
+    position: relative;
+    overflow: hidden;
 }
 
 
@@ -77,9 +79,50 @@ dialog[open] {
 }
 
 /*create style of falling pattern*/
-.fallingPattern {
+.fallingEmoji{
     position: absolute;
     top: -2rem;
     left: 50%;
-    font-size: 2rem
+    font-size: 2rem;
+    animation: fallDown 2s linear forwards;
 }
+
+/* falling animation*/
+@keyframes fallDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(80vh);
+        opacity: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
