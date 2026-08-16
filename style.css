@@ -82,7 +82,6 @@ dialog[open] {
 .fallingEmoji{
     position: absolute;
     top: -2rem;
-    left: 50%;
     font-size: 2rem;
     animation: fallDown 2s linear forwards;
 }
