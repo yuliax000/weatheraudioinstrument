@@ -15,11 +15,26 @@ const thunder = document.getElementById('thunderContainer');
 const wind = document.getElementById('windContainer');
 const drum = document.getElementById('drumContainer');
 
+
+// create reverb
+const reverb = new Tone.Reverb(8).toDestination();
+reverb.wet.value = 0.8;
+
 // create synth
-const synth = new Tone.Synth().toDestination();
+const synth = new Tone.Synth({
+    oscillator: {
+        type: "sine"
+    },
+    envelope: {
+        attack: 1,
+        decay: 0.2,
+        sustain: 0.6,
+        release: 5
+    }
+
+}).connect(reverb);
 // create drum synth
 const drumSynth = new Tone.MembraneSynth().toDestination();
-
 
 
 
@@ -76,36 +91,37 @@ introDialogClose.addEventListener('click', async function (){
 sun.addEventListener ("click", function() {
     const note = pickRandomNote(sunNotes);
 
-    synth.triggerAttackRelease(note, "8n");
+    synth.triggerAttackRelease(note, "4n");
     createFallingEmoji(sun,"☀");
 });
 
 rain.addEventListener ("click", function() {
     const note = pickRandomNote(rainNotes);
 
-    synth.triggerAttackRelease(note, "8n");
+    synth.triggerAttackRelease(note, "2n");
     createFallingEmoji(rain, "💧");
 });
 
 thunder.addEventListener("click", function() {
     const note = pickRandomNote(thunderNotes);
 
-    synth.triggerAttackRelease(note, "4n");
+    synth.triggerAttackRelease(note, "8n");
     createFallingEmoji(thunder, "⚡");
 });
 
 wind.addEventListener("click", function() {
     const note = pickRandomNote(windNotes);
 
-    synth.triggerAttackRelease(note, "2n");
+    synth.triggerAttackRelease(note, "1n");
     createFallingEmoji(wind, "🍃");
 });
 
 drum.addEventListener("click", function (){
     const note = pickRandomNote(drumNotes);
 
-   synth.triggerAttackRelease(note, "16n");
+    synth.triggerAttackRelease(note, "16n");
 });
+
 
 
 
@@ -133,7 +149,7 @@ function createFallingEmoji(container, emoji) {
 
 // function to pick a random note from arrays
 function pickRandomNote(notes) {
-   const randomIndex = Math.floor(Math.random() * notes.length);
+    const randomIndex = Math.floor(Math.random() * notes.length);
     return notes[randomIndex];
 }
 
@@ -154,6 +170,10 @@ function showDrumHit(){
         drum.classList.remove('drumHit');
     }, {once: true});
 }
+
+
+
+
 
 
 
