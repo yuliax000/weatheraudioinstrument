@@ -15,11 +15,14 @@ const thunder = document.getElementById('thunderContainer');
 const wind = document.getElementById('windContainer');
 const drum = document.getElementById('drumContainer');
 
+
+// create reverb
+const reverb = new Tone.Reverb(3).toDestination();
+
 // create synth
-const synth = new Tone.Synth().toDestination();
+const synth = new Tone.Synth().connect(reverb);
 // create drum synth
 const drumSynth = new Tone.MembraneSynth().toDestination();
-
 
 
 
@@ -76,28 +79,28 @@ introDialogClose.addEventListener('click', async function (){
 sun.addEventListener ("click", function() {
     const note = pickRandomNote(sunNotes);
 
-    synth.triggerAttackRelease(note, "8n");
+    synth.triggerAttackRelease(note, "4n");
     createFallingEmoji(sun,"☀");
 });
 
 rain.addEventListener ("click", function() {
     const note = pickRandomNote(rainNotes);
 
-    synth.triggerAttackRelease(note, "8n");
+    synth.triggerAttackRelease(note, "2n");
     createFallingEmoji(rain, "💧");
 });
 
 thunder.addEventListener("click", function() {
     const note = pickRandomNote(thunderNotes);
 
-    synth.triggerAttackRelease(note, "4n");
+    synth.triggerAttackRelease(note, "8n");
     createFallingEmoji(thunder, "⚡");
 });
 
 wind.addEventListener("click", function() {
     const note = pickRandomNote(windNotes);
 
-    synth.triggerAttackRelease(note, "2n");
+    synth.triggerAttackRelease(note, "1n");
     createFallingEmoji(wind, "🍃");
 });
 
@@ -106,6 +109,7 @@ drum.addEventListener("click", function (){
 
    synth.triggerAttackRelease(note, "16n");
 });
+
 
 
 
