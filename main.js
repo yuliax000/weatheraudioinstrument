@@ -134,7 +134,7 @@ function createFallingEmoji(container, emoji) {
 // function to pick a random note from arrays
 function pickRandomNote(notes) {
    const randomIndex = Math.floor(Math.random() * notes.length);
-    return notes[randomIndex];
+    return notes[randomIndex]; 
 }
 
 // function to play drum
