@@ -17,10 +17,22 @@ const drum = document.getElementById('drumContainer');
 
 
 // create reverb
-const reverb = new Tone.Reverb(3).toDestination();
+const reverb = new Tone.Reverb(6).toDestination();
+reverb.wet.value = 0.8;
 
 // create synth
-const synth = new Tone.Synth().connect(reverb);
+const synth = new Tone.Synth({
+    oscillator: {
+        type: "sine"
+    },
+    envelope: {
+        attack: 0.05,
+        decay: 0.2,
+        sustain: 0.6,
+        release: 3
+    }
+
+}).connect(reverb);
 // create drum synth
 const drumSynth = new Tone.MembraneSynth().toDestination();
 
