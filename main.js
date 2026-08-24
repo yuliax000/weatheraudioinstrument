@@ -125,12 +125,13 @@ function createFallingEmoji(container, emoji) {
 
     fallingEmoji.addEventListener('animationend', function() {
         playDrumSound();
+        showDrumHit();
         fallingEmoji.remove();
     });
 
 }
 
-// function to pick a random note from array
+// function to pick a random note from arrays
 function pickRandomNote(notes) {
    const randomIndex = Math.floor(Math.random() * notes.length);
     return notes[randomIndex];
@@ -144,6 +145,15 @@ function playDrumSound() {
 }
 
 
+// show animation when the falling Emoji hit the Drum
+
+function showDrumHit(){
+    drum.classList.add('drumHit');
+
+    drum.addEventListener('animationend', function() {
+        drum.classList.remove('drumHit');
+    }, {once: true});
+}
 
 
 

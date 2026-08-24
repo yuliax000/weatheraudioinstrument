@@ -98,7 +98,22 @@ dialog[open] {
     }
 }
 
+/*feedback for hitting the drum*/
+.drumHit {
+    animation: drumHit 0.2s ease;
+}
 
+@keyframes drumHit {
+    from {
+        transform: scale(1);
+        background-color: crimson;
+    }
+
+    to {
+        transform: scale(1.05);
+        background-color: transparent;
+    }
+}
 
 
 
