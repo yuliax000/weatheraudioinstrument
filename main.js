@@ -16,7 +16,10 @@ const wind = document.getElementById('windContainer');
 const drum = document.getElementById('drumContainer');
 
 // create synth
-const synth = new Tone.Synth().toDestination();
+const synth = new Tone.Synth({
+    oscillator: {
+        type: "sine"
+    }}).toDestination();
 // create drum synth
 const drumSynth = new Tone.MembraneSynth().toDestination();
 
