@@ -117,9 +117,7 @@ wind.addEventListener("click", function() {
 });
 
 drum.addEventListener("click", function (){
-    const note = pickRandomNote(drumNotes);
-
-    synth.triggerAttackRelease(note, "16n");
+    playDrumSound();
 });
 
 
@@ -140,7 +138,7 @@ function createFallingEmoji(container, emoji) {
 // Delete emoji when if falls off the drum
 
     fallingEmoji.addEventListener('animationend', function() {
-        playDrumSound();
+        // playDrumSound();
         showDrumHit();
         fallingEmoji.remove();
     });
