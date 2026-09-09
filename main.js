@@ -33,7 +33,7 @@ const synth = new Tone.Synth({
     }
 
 }).connect(reverb);
-const synth = new Tone.Synth().toDestination();
+// const synth = new Tone.Synth().toDestination();
 // create drum synth
 const drumSynth = new Tone.MembraneSynth().toDestination();
 
