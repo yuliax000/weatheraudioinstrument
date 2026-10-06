@@ -17,16 +17,37 @@ const drum = document.getElementById('drumContainer');
 
 
 // find volume slider
+
 const volumeSlider = document.getElementById('volumeSlider');
+const volumeHand = document.getElementById('volumeHand');
 
 
-volumeSlider.addEventListener('input', function() {
-    const volume = volumeSlider.value;
-    const VolumeDb = (volume - 100) / 2;
+    // slider value binding with hand position
 
-    Tone.Destination.volume.value = VolumeDb;
-})
+function updateVolumeControl() {
+    const min = Number(volumeSlider.min);
+    const max = Number(volumeSlider.max);
+    const value = Number(volumeSlider.value);
 
+
+    const percent = (value - min) / (max - min);
+    const sliderWidth = volumeSlider.getBoundingClientRect().width;
+    const thumbWidth = 22;
+
+    const handPosition = thumbWidth / 2 + percent * (sliderWidth - thumbWidth);
+
+    volumeHand.style.left = `${handPosition}px`;
+
+
+    if (value === 0) {
+        Tone.Destination.volume.value = -Infinity;
+    } else {
+        Tone.Destination.volume.value = (value - 100) / 2;
+    }
+}
+
+volumeSlider.addEventListener('input', updateVolumeControl);
+updateVolumeControl();
 
 
 
