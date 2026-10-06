@@ -15,6 +15,12 @@ const thunder = document.getElementById('thunderContainer');
 const wind = document.getElementById('windContainer');
 const drum = document.getElementById('drumContainer');
 
+const sunIcon = document.getElementById('sunIcon');
+const rainIcon = document.getElementById('rainIcon');
+const thunderIcon = document.getElementById('thunderIcon');
+const windIcon = document.getElementById('windIcon');
+const grassIcon = document.getElementById('grassIcon');
+
 
 // find volume slider
 
@@ -124,32 +130,32 @@ introDialogClose.addEventListener('click', async function (){
 // }
 
 // add click events to weather elements
-sun.addEventListener ("click", function() {
+sunIcon.addEventListener ("click", function() {
     const note = pickRandomNote(sunNotes);
 
     synth.triggerAttackRelease(note, "4n");
-    createFallingEmoji(sun,"☀");
+    createFallingEmoji(sun,"assets/sun.png");
 });
 
-rain.addEventListener ("click", function() {
+rainIcon.addEventListener ("click", function() {
     const note = pickRandomNote(rainNotes);
 
     synth.triggerAttackRelease(note, "2n");
-    createFallingEmoji(rain, "💧");
+    createFallingEmoji(rain, "assets/water.png");
 });
 
-thunder.addEventListener("click", function() {
+thunderIcon.addEventListener("click", function() {
     const note = pickRandomNote(thunderNotes);
 
     synth.triggerAttackRelease(note, "8n");
-    createFallingEmoji(thunder, "⚡");
+    createFallingEmoji(thunder, "assets/thunder.png");
 });
 
-wind.addEventListener("click", function() {
+windIcon.addEventListener("click", function() {
     const note = pickRandomNote(windNotes);
 
     synth.triggerAttackRelease(note, "1n");
-    createFallingEmoji(wind, "🍃");
+    createFallingEmoji(wind, "assets/leaf.png");
 });
 
 drum.addEventListener("click", function (){
@@ -162,10 +168,11 @@ drum.addEventListener("click", function (){
 
 
 //Visual: create emoji when sections are clicked.
-function createFallingEmoji(container, emoji) {
-    const fallingEmoji = document.createElement('div');
+function createFallingEmoji(container, imagePath) {
+    const fallingEmoji = document.createElement('img');
     fallingEmoji.classList.add('fallingEmoji');
-    fallingEmoji.textContent = emoji;
+    fallingEmoji.src = imagePath;
+    fallingEmoji.alt = "";
 
     fallingEmoji.style.left = `${Math.random() * 90}%`;
     fallingEmoji.style.fontSize = `${1+Math.random() * 2}rem`;
