@@ -15,37 +15,72 @@ const thunder = document.getElementById('thunderContainer');
 const wind = document.getElementById('windContainer');
 const drum = document.getElementById('drumContainer');
 
+const sunIcon = document.getElementById('sunIcon');
+const rainIcon = document.getElementById('rainIcon');
+const thunderIcon = document.getElementById('thunderIcon');
+const windIcon = document.getElementById('windIcon');
+const grassIcon = document.getElementById('grassIcon');
+
+
+// find volume slider
+
+const volumeSlider = document.getElementById('volumeSlider');
+const volumeHand = document.getElementById('volumeHand');
+
+
+    // slider value binding with hand position
+
+function updateVolumeControl() {
+    const min = Number(volumeSlider.min);
+    const max = Number(volumeSlider.max);
+    const value = Number(volumeSlider.value);
+
+
+    const percent = (value - min) / (max - min);
+    const sliderWidth = volumeSlider.getBoundingClientRect().width;
+    const thumbWidth = 22;
+
+    const handPosition = thumbWidth / 2 + percent * (sliderWidth - thumbWidth);
+
+    volumeHand.style.left = `${handPosition}px`;
+
+
+    if (value === 0) {
+        Tone.Destination.volume.value = -Infinity;
+    } else {
+        Tone.Destination.volume.value = (value - 100) / 2;
+    }
+}
+
+volumeSlider.addEventListener('input', updateVolumeControl);
+updateVolumeControl();
+
+
+
+
+// create reverb
+const reverb = new Tone.Reverb(8).toDestination();
+reverb.wet.value = 0.8;
+
 // create synth
 const synth = new Tone.Synth({
     oscillator: {
         type: "sine"
-    }}).toDestination();
-// create drum synth
-const drumSynth = new Tone.MembraneSynth({
-    pitchDecay: 0.03,
-    octaves: 4,
-    oscillator: {
-        type: "sine"
     },
     envelope: {
-        attack: 0.001,
-        decay: 0.25,
-        sustain: 0,
-        release: 0.1
+        attack: 1,
+        decay: 0.2,
+        sustain: 0.6,
+        release: 5
     }
-}).toDestination();
 
+}).connect(reverb);
+// create drum synth
+const drumSynth = new Tone.MembraneSynth().toDestination();
 
 
 
 // arrays for random pitch.
-
-// I choose some higher pitch notes for Sun to fit the warm and positive feeling.
-// rain notes and wind notes are lower pitch as a softer feeling
-// thunder notes are the lowest so that it can be associated with thunder's sound.
-
-
-
 const sunNotes=[ "C4", "D4", "E4", "G4", "A4",
     "C5", "D5", "E5", "G5", "A5",
     "C6", "E6"];
@@ -95,57 +130,49 @@ introDialogClose.addEventListener('click', async function (){
 // }
 
 // add click events to weather elements
-
-
-
-// Each element has different length of notes to provide various feelings.
-// Sun is shorter as it gives quite neutral feeling in length.
-sun.addEventListener ("click", function() {
+sunIcon.addEventListener ("click", function() {
     const note = pickRandomNote(sunNotes);
 
     synth.triggerAttackRelease(note, "4n");
-    createFallingEmoji(sun,"☀");
+    createFallingEmoji(sun,"assets/sun.png");
 });
 
-// Rain uses a slightly longer note length to evoke the feeling of long, thin strands of falling rain.
-rain.addEventListener ("click", function() {
+rainIcon.addEventListener ("click", function() {
     const note = pickRandomNote(rainNotes);
 
     synth.triggerAttackRelease(note, "2n");
-    createFallingEmoji(rain, "💧");
+    createFallingEmoji(rain, "assets/water.png");
 });
 
-// Thunder uses a drum-like low-pitched sound with the shortest note length to create a heavy and powerful impact, similar to the sound of thunder.
-thunder.addEventListener("click", function() {
+thunderIcon.addEventListener("click", function() {
     const note = pickRandomNote(thunderNotes);
 
     synth.triggerAttackRelease(note, "8n");
-    createFallingEmoji(thunder, "⚡");
+    createFallingEmoji(thunder, "assets/thunder.png");
 });
 
-
-// Wind uses the longest note length to evoke the feeling of a gust of wind sweeping past.
-wind.addEventListener("click", function() {
+windIcon.addEventListener("click", function() {
     const note = pickRandomNote(windNotes);
 
     synth.triggerAttackRelease(note, "1n");
-    createFallingEmoji(wind, "🍃");
+    createFallingEmoji(wind, "assets/leaf.png");
 });
 
-// The drum uses a separate, very short note length to create a stronger sense of rhythm.
 drum.addEventListener("click", function (){
     const note = pickRandomNote(drumNotes);
 
-   drumSynth.triggerAttackRelease(note, "16n");
+    synth.triggerAttackRelease(note, "16n");
 });
+
 
 
 
 //Visual: create emoji when sections are clicked.
-function createFallingEmoji(container, emoji) {
-    const fallingEmoji = document.createElement('div');
+function createFallingEmoji(container, imagePath) {
+    const fallingEmoji = document.createElement('img');
     fallingEmoji.classList.add('fallingEmoji');
-    fallingEmoji.textContent = emoji;
+    fallingEmoji.src = imagePath;
+    fallingEmoji.alt = "";
 
     fallingEmoji.style.left = `${Math.random() * 90}%`;
     fallingEmoji.style.fontSize = `${1+Math.random() * 2}rem`;
@@ -165,8 +192,8 @@ function createFallingEmoji(container, emoji) {
 
 // function to pick a random note from arrays
 function pickRandomNote(notes) {
-   const randomIndex = Math.floor(Math.random() * notes.length);
-    return notes[randomIndex]; 
+    const randomIndex = Math.floor(Math.random() * notes.length);
+    return notes[randomIndex];
 }
 
 // function to play drum
@@ -178,7 +205,6 @@ function playDrumSound() {
 
 
 // show animation when the falling Emoji hit the Drum
-// I think the drum hit feels a little plain without visual feedback. Adding a visual response to the impact could strengthen the sense of collision and make the interaction feel more engaging.
 
 function showDrumHit(){
     drum.classList.add('drumHit');
@@ -187,6 +213,10 @@ function showDrumHit(){
         drum.classList.remove('drumHit');
     }, {once: true});
 }
+
+
+
+
 
 
 
