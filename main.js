@@ -1,4 +1,5 @@
 // browser loads html page > browser loads js > open the dialog > user closes the dialog > audio system loads > user clicks sound button.
+
 // find the dialog
 const introDialog = document.getElementById('introDialog');
 // find intro button to close modal
@@ -21,6 +22,11 @@ const thunderIcon = document.getElementById('thunderIcon');
 const windIcon = document.getElementById('windIcon');
 const grassIcon = document.getElementById('grassIcon');
 
+//I found that generating falling images only within their corresponding sections felt a little repetitive and did not reflect how weather behaves in reality. For example, rain would not fall within a strictly defined area. Therefore, I expanded the range of the falling icons to cover the entire webpage. I also changed the trigger interaction so that users click the corresponding weather image to generate the falling icons, rather than clicking anywhere within a section. In other words, each weather image now works like a button that generates its corresponding visual elements.
+
+
+
+const main = document.querySelector("main")
 
 // find volume slider
 
@@ -140,28 +146,28 @@ sunIcon.addEventListener ("click", function() {
     const note = pickRandomNote(sunNotes);
 
     synth.triggerAttackRelease(note, "4n");
-    createFallingEmoji(sun,"assets/sun.png");
+    createSkyFallingIcon("assets/sun.png");
 });
 
 rainIcon.addEventListener ("click", function() {
     const note = pickRandomNote(rainNotes);
 
     synth.triggerAttackRelease(note, "2n");
-    createFallingEmoji(rain, "assets/water.png");
+    createSkyFallingIcon("assets/water.png")
 });
 
 thunderIcon.addEventListener("click", function() {
     const note = pickRandomNote(thunderNotes);
 
     synth.triggerAttackRelease(note, "8n");
-    createFallingEmoji(thunder, "assets/thunder.png");
+    createSkyFallingIcon("assets/thunder.png");
 });
 
 windIcon.addEventListener("click", function() {
     const note = pickRandomNote(windNotes);
 
     synth.triggerAttackRelease(note, "1n");
-    createFallingEmoji(wind, "assets/leaf.png");
+    createSkyFallingIcon("assets/leaf.png")
 });
 
 drum.addEventListener("click", function (){
@@ -176,27 +182,56 @@ drum.addEventListener("click", function (){
 
 
 //Visual: create emoji when sections are clicked.
-function createFallingEmoji(container, imagePath) {
-    const fallingEmoji = document.createElement('img');
-    fallingEmoji.classList.add('fallingEmoji');
-    fallingEmoji.src = imagePath;
-    fallingEmoji.alt = "";
-
-    fallingEmoji.style.left = `${Math.random() * 90}%`;
-    fallingEmoji.style.fontSize = `${1+Math.random() * 2}rem`;
 
 
-    container.appendChild(fallingEmoji);
+// function createFallingEmoji(container, imagePath) {
+//     const fallingEmoji = document.createElement('img');
+//     fallingEmoji.classList.add('fallingEmoji');
+//     fallingEmoji.src = imagePath;
+//     fallingEmoji.alt = "";
+//
+//     fallingEmoji.style.left = `${Math.random() * 90}%`;
+//     fallingEmoji.style.fontSize = `${1+Math.random() * 2}rem`;
+//
+//
+//     container.appendChild(fallingEmoji);
+//
+// // Delete emoji when if falls off the drum
+//
+//     fallingEmoji.addEventListener('animationend', function() {
+//         playDrumSound();
+//         showDrumHit();
+//         fallingEmoji.remove();
+//     });
+//
+// }
 
-// Delete emoji when if falls off the drum
+// let the icons falling from whole sky area
 
-    fallingEmoji.addEventListener('animationend', function() {
+function createSkyFallingIcon(imagePath) {
+    const fallingIcon = document.createElement("img");
+
+    const landingPosition = 5 + Math.random() * 90;
+
+    fallingIcon.classList.add("skyFallingIcon");
+    fallingIcon.src = imagePath;
+    fallingIcon.alt = "";
+    fallingIcon.style.left = `${landingPosition}%`;
+
+    main.appendChild(fallingIcon);
+
+    fallingIcon.addEventListener("animationend", function() {
         playDrumSound();
         showDrumHit();
-        fallingEmoji.remove();
+        showGrassAt(landingPosition);
+        fallingIcon.remove();
     });
-
 }
+
+
+
+
+
 
 // function to pick a random note from arrays
 function pickRandomNote(notes) {
@@ -225,14 +260,32 @@ function showDrumHit(){
 
 // I chose to make the grass pop up while the icons hit the ground because it provides more visual feedback
 // grass pop up function
-function showGrassPop() {
+// function showGrassPop() {
+//     const grass = document.createElement("img");
+//
+//     grass.classList.add("grassPop");
+//     grass.src = "assets/grass.png";
+//     grass.alt = "";
+//
+//     grass.style.left = `${Math.random() * 90}%`;
+//
+//     drum.appendChild(grass);
+//
+//     grass.addEventListener("animationend", function() {
+//         grass.remove();
+//     });
+// }
+
+
+// show grass at the corresponding position
+
+function showGrassAt(position) {
     const grass = document.createElement("img");
 
     grass.classList.add("grassPop");
     grass.src = "assets/grass.png";
     grass.alt = "";
-
-    grass.style.left = `${Math.random() * 90}%`;
+    grass.style.left = `${position}%`;
 
     drum.appendChild(grass);
 
