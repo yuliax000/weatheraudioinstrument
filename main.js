@@ -62,7 +62,7 @@ updateVolumeControl();
 const reverb = new Tone.Reverb(8).toDestination();
 reverb.wet.value = 0.8;
 
-// create synth
+
 // create synth
 const synth = new Tone.Synth({
     oscillator: {
@@ -167,6 +167,8 @@ windIcon.addEventListener("click", function() {
 drum.addEventListener("click", function (){
     const note = pickRandomNote(drumNotes);
 
+
+
     synth.triggerAttackRelease(note, "16n");
 });
 
@@ -214,6 +216,7 @@ function playDrumSound() {
 
 function showDrumHit(){
     drum.classList.add('drumHit');
+    showGrassPop();
 
     drum.addEventListener('animationend', function() {
         drum.classList.remove('drumHit');
