@@ -118,11 +118,11 @@ dialog[open] {
 @keyframes drumHit {
     from {
         transform: scale(1);
-        background-color: crimson;
+        background-color: lightgreen;
     }
 
     to {
-        transform: scale(1.05);
+        transform: scale(1);
         background-color: transparent;
     }
 }

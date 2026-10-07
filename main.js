@@ -220,6 +220,25 @@ function showDrumHit(){
     }, {once: true});
 }
 
+// I chose to make the grass pop up while the icons hit the ground because it provides more visual feedback
+// grass pop up function
+function showGrassPop() {
+    const grass = document.createElement("img");
+
+    grass.classList.add("grassPop");
+    grass.src = "assets/grass.png";
+    grass.alt = "";
+
+    grass.style.left = `${Math.random() * 90}%`;
+
+    drum.appendChild(grass);
+
+    grass.addEventListener("animationend", function() {
+        grass.remove();
+    });
+}
+
+
 
 
 
