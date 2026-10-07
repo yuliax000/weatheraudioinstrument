@@ -63,20 +63,26 @@ const reverb = new Tone.Reverb(8).toDestination();
 reverb.wet.value = 0.8;
 
 // create synth
+// create synth
 const synth = new Tone.Synth({
+    oscillator: {
+        type: "sine"
+    }}).toDestination();
+// create drum synth
+const drumSynth = new Tone.MembraneSynth({
+    pitchDecay: 0.03,
+    octaves: 4,
     oscillator: {
         type: "sine"
     },
     envelope: {
-        attack: 1,
-        decay: 0.2,
-        sustain: 0.6,
-        release: 5
+        attack: 0.001,
+        decay: 0.25,
+        sustain: 0,
+        release: 0.1
     }
+}).toDestination();
 
-}).connect(reverb);
-// create drum synth
-const drumSynth = new Tone.MembraneSynth().toDestination();
 
 
 
