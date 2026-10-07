@@ -251,7 +251,7 @@ function playDrumSound() {
 
 function showDrumHit(){
     drum.classList.add('drumHit');
-    showGrassPop();
+    // showGrassPop();
 
     drum.addEventListener('animationend', function() {
         drum.classList.remove('drumHit');
