@@ -1,3 +1,9 @@
+/*I choose very simple structure, black and white background as each prototype's appearance to help users focus more on the audio mapping. */
+/*At this stage I don't want too much appearance to affect users' pure experience on my chosen topic. */
+
+
+
+
 
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Comic+Relief:wght@400;700&display=swap');
 
@@ -55,7 +61,7 @@ main{
     align-items: flex-start;
     padding-top: 3rem;
 
-    border: 1px solid black;
+    border: 1px solid var(--color02);
     position: relative;
     overflow: hidden;
 }
@@ -80,10 +86,11 @@ dialog[open] {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+    border: 1px solid var(--color02);
 }
 
 /*create style of falling pattern*/
+/*I use emoji as my falling elements because they are easy to understand.*/
 .fallingEmoji{
     position: absolute;
     top: -2rem;
