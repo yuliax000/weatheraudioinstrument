@@ -283,7 +283,7 @@ function showGrassAt(position) {
     const grass = document.createElement("img");
 
     grass.classList.add("grassPop");
-    grass.src = "assets/grass.png";
+    grass.src = "assets/grass60.png";
     grass.alt = "";
     grass.style.left = `${position}%`;
 

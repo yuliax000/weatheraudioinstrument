@@ -19,6 +19,7 @@
     --color03:lightgrey;
     --color04:darkgrey;
     --border:  0.25rem double var(--color03);
+    --grass-height: clamp(8rem, 24vh, 16rem)
 }
 
 
@@ -44,21 +45,24 @@ body{
 }
 
 
-main{
+main {
     margin: 0;
-    flex: 1;
-    min-height: 0;
-    position: relative;
-    overflow: hidden;
-}
-.weatherContainer {
-    display: flex;
-    height: 80%;
+    height: 100vh;
     position: relative;
     overflow: hidden;
 
-    background:
-            linear-gradient(to bottom, #8fd7ff, #dff5ff);
+    background-image: url("assets/background-sky.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.weatherContainer {
+    display: flex;
+    height: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .weather {
@@ -66,7 +70,7 @@ main{
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 3rem;
+    padding-top: 5rem;
 
     /*border: 1px solid var(--color02);*/
     position: relative;
@@ -88,14 +92,23 @@ dialog[open] {
 }
 
 .drumContainer {
-    height: 20%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: var(--grass-height);
+
+    z-index: 2;
+    overflow: hidden;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    /*border: 1px solid var(--color02);*/
-    position: relative;
-    overflow: hidden;
+
+    background-image: url("assets/background-grass.svg");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
 }
 
 /*create style of falling pattern*/
@@ -121,20 +134,36 @@ dialog[open] {
 
 /*feedback for hitting the drum*/
 .drumHit {
-    animation: drumHit 0.2s ease;
+    animation: grassFlash 0.25s ease;
 }
 
-@keyframes drumHit {
-    from {
-        transform: scale(1);
-        background-color: lightgreen;
+/*@keyframes drumHit {*/
+/*    from {*/
+/*        transform: scale(1);*/
+/*        background-color: lightgreen;*/
+/*    }*/
+
+/*    to {*/
+/*        transform: scale(1);*/
+/*        background-color: transparent;*/
+/*    }*/
+/*}*/
+
+@keyframes grassFlash {
+    0% {
+        filter: brightness(1);
     }
 
-    to {
-        transform: scale(1);
-        background-color: transparent;
+    50% {
+        filter: brightness(1.15);
+    }
+
+    100% {
+        filter: brightness(1);
     }
 }
+
+
 
 
 .volumeControl {
@@ -178,7 +207,7 @@ dialog[open] {
 #volumeSlider::-webkit-slider-runnable-track {
     height: 0.5rem;
     background: linear-gradient(to right, dodgerblue, gold);
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 999px;
 }
 
@@ -188,14 +217,14 @@ dialog[open] {
     height: 1.4rem;
     margin-top: -0.55rem;
     background: white;
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 50%;
 }
 
 #volumeSlider::-moz-range-track {
     height: 0.5rem;
     background: linear-gradient(to right, dodgerblue, gold);
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 999px;
 }
 
@@ -203,7 +232,7 @@ dialog[open] {
     width: 1.4rem;
     height: 1.4rem;
     background: white;
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 50%;
 }
 
@@ -218,7 +247,7 @@ dialog[open] {
 .grassPop {
     position: absolute;
     bottom: 60%;
-    width: 2rem;
+    width: 3rem;
     transform: translateX(-50%);
     animation: grassPop 0.6s ease-out forwards;
     pointer-events: none;
@@ -261,26 +290,12 @@ dialog[open] {
     }
 
     to {
-        top: 80%;
+        top: calc(100% - var(--grass-height));
         opacity: 1;
     }
 }
 
-.drumContainer {
-    height: 20%;
-    position: relative;
-    overflow: hidden;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background:
-
-            linear-gradient(to bottom, #7ed957, #2f9e44);
-
-    /*border: 1px solid black;*/
-}
 
 
 
