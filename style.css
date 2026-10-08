@@ -332,6 +332,32 @@ dialog[open] {
     drop-shadow(0 0 4rem rgba(255, 140, 20, 0));
 }
 
+/*rain effects*/
+
+#rainIcon {
+    animation: rainBob 1.2s ease-in-out infinite;
+    transition: transform 0.2s ease, filter 0.2s ease;
+    transform: translateY(0) scale(1);
+}
+
+#rainIcon:hover {
+    animation: none;
+    transform: translateY(0.4rem) scale(1.15);
+}
+
+@keyframes rainBob {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(0.35rem) scale(1);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
 
 
 
@@ -393,7 +419,6 @@ dialog[open] {
     }
 
 }
-
 
 
 
