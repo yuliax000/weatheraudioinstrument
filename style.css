@@ -19,19 +19,11 @@
     --color03:lightgrey;
     --color04:darkgrey;
     --border:  0.25rem double var(--color03);
-    --grass-height: clamp(8rem, 24vh, 16rem)
+    --grass-height: clamp(8rem, 24vh, 16rem);
 }
 
 
 
-@media(prefers-color-scheme: dark) {
-    :root {
-        --color01:black;
-        --color02:white;
-        --color03:darkgrey;
-        --color04:lightgrey;
-    }
-}
 
 body{
     font-family: "Comic Relief", system-ui;
@@ -69,8 +61,10 @@ main {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding-top: 5rem;
+    /*align-items: flex-start;*/
+    /*padding-top: 5rem;*/
+    align-items: center;
+
 
     /*border: 1px solid var(--color02);*/
     position: relative;
@@ -305,6 +299,62 @@ dialog[open] {
 
 
 
+
+
+
+
+
+
+
+@media(prefers-color-scheme: dark) {
+    :root {
+        --color01:black;
+        --color02:white;
+        --color03:darkgrey;
+        --color04:lightgrey;
+    }
+    main {
+        background-image: url("assets/background-night.svg");
+    }
+
+    .drumContainer {
+        background-image: url("assets/background-grass-night.svg");
+    }
+
+    .weatherIcon {
+        filter: brightness(0.85) saturate(0.8);
+    }
+
+    #volumeHand {
+        filter: brightness(0) invert(1);
+    }
+
+    .skyFallingIcon {
+        filter: brightness(0.85) saturate(0.8);
+    }
+    .grassPop {
+        filter: brightness(0.85) saturate(0.8);
+    }
+
+    .drumHit {
+        animation: grassFlashNight 0.25s ease;
+    }
+
+    @keyframes grassFlashNight {
+        0% {
+            filter: brightness(1);
+        }
+
+        50% {
+            filter: brightness(0.85);
+        }
+
+        100% {
+            filter: brightness(1);
+        }
+    }
+
+}
 
 
 
