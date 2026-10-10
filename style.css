@@ -398,7 +398,32 @@ dialog[open] {
     }
 }
 
+/*wind animation*/
+/*I added a gentle side-to-side swaying animation to the wind to reflect its soft, floating movement.*/
 
+#windIcon {
+    animation: windFloat 2s ease-in-out infinite;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+#windIcon:hover {
+    animation: none;
+    transform: translateX(0.5rem) rotate(8deg) scale(1.15);
+}
+
+@keyframes windFloat {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateX(0.4rem) rotate(5deg);
+    }
+
+    100% {
+        transform: translateX(0) rotate(0deg);
+    }
+}
 
 
 
@@ -471,6 +496,32 @@ dialog[open] {
                 drop-shadow(0 0 1rem rgba(255, 255, 150, 0.7));
     }
 
+    #sunIcon {
+        animation: sunGlowPulseNight 1.8s ease-in-out infinite;
+    }
+
+    @keyframes sunGlowPulseNight {
+        0% {
+            filter: brightness(0.55) saturate(0.8)
+            drop-shadow(0 0 0.2rem rgba(255, 220, 80, 0.3));
+        }
+
+        50% {
+            filter: brightness(0.55) saturate(0.8)
+            drop-shadow(0 0 0.5rem rgba(255, 220, 80, 0.65));
+        }
+
+        100% {
+            filter: brightness(0.55) saturate(0.8)
+            drop-shadow(0 0 0.2rem rgba(255, 220, 80, 0.3));
+        }
+    }
+
+    #sunIcon:hover {
+        filter: brightness(0.55) saturate(0.8)
+        drop-shadow(0 0 0.9rem rgba(255, 220, 80, 0.9))
+        drop-shadow(0 0 1.6rem rgba(255, 180, 40, 0.55));
+    }
 
 
 
