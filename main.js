@@ -65,27 +65,71 @@ updateVolumeControl();
 
 
 // create reverb
-const reverb = new Tone.Reverb(8).toDestination();
-reverb.wet.value = 0.8;
+// const reverb = new Tone.Reverb(8).toDestination();
+// reverb.wet.value = 0.8;
 
 
 // create synth
+
+// const synth = new Tone.Synth({
+//     oscillator: {
+//         type: "sine"
+//     }}).toDestination();
+
+const reverb = new Tone.Reverb({
+    decay: 3,
+    wet: 0.35
+}).toDestination();
+
+const chorus = new Tone.Chorus({
+    frequency: 1.5,
+    delayTime: 3,
+    depth: 0.4,
+    wet: 0.25
+}).connect(reverb);
+
+chorus.start();
+
 const synth = new Tone.Synth({
     oscillator: {
-        type: "sine"
-    }}).toDestination();
+        type: "triangle"
+    },
+    envelope: {
+        attack: 0.03,
+        decay: 0.25,
+        sustain: 0.35,
+        release: 1.2
+    }
+}).connect(chorus);
+
+
+
 // create drum synth
+// const drumSynth = new Tone.MembraneSynth({
+//     pitchDecay: 0.03,
+//     octaves: 4,
+//     oscillator: {
+//         type: "sine"
+//     },
+//     envelope: {
+//         attack: 0.001,
+//         decay: 0.25,
+//         sustain: 0,
+//         release: 0.1
+//     }
+// }).toDestination();
+
 const drumSynth = new Tone.MembraneSynth({
-    pitchDecay: 0.03,
-    octaves: 4,
+    pitchDecay: 0.05,
+    octaves: 2,
     oscillator: {
         type: "sine"
     },
     envelope: {
         attack: 0.001,
-        decay: 0.25,
+        decay: 0.18,
         sustain: 0,
-        release: 0.1
+        release: 0.04
     }
 }).toDestination();
 
@@ -102,9 +146,9 @@ const rainNotes = [
     "D5", "E5"
 ];
 const thunderNotes = [
-    "C1", "D1", "E1", "G1", "A1",
     "C2", "D2", "E2", "G2", "A2",
-    "C3", "D3"
+    "C3", "D3", "E3", "G3", "A3",
+    "C4", "D4"
 ];
 
 const windNotes = [
@@ -173,9 +217,7 @@ windIcon.addEventListener("click", function() {
 drum.addEventListener("click", function (){
     const note = pickRandomNote(drumNotes);
 
-
-
-    synth.triggerAttackRelease(note, "16n");
+    drumSynth.triggerAttackRelease(note, "16n");
 });
 
 
