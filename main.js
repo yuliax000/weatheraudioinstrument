@@ -76,31 +76,57 @@ updateVolumeControl();
 //         type: "sine"
 //     }}).toDestination();
 
+
+// ---------------------------
+// const reverb = new Tone.Reverb({
+//     decay: 2,
+//     wet: 0.2
+// }).toDestination();
+//
+// const synth = new Tone.Synth({
+//     oscillator: {
+//         type: "triangle"
+//     },
+//     envelope: {
+//         attack: 0.02,
+//         decay: 0.2,
+//         sustain: 0.3,
+//         release: 0.8
+//     }
+// }).connect(reverb);
+
+
+// piano sampler try
 const reverb = new Tone.Reverb({
-    decay: 3,
-    wet: 0.35
+    decay: 1.5,
+    wet: 0.12
 }).toDestination();
 
-const chorus = new Tone.Chorus({
-    frequency: 1.5,
-    delayTime: 3,
-    depth: 0.4,
-    wet: 0.25
+const synth = new Tone.Sampler({
+    urls: {
+        A0: "A0.mp3",
+        C1: "C1.mp3",
+        "D#1": "Ds1.mp3",
+        "F#1": "Fs1.mp3",
+        A1: "A1.mp3",
+        C2: "C2.mp3",
+        "D#2": "Ds2.mp3",
+        "F#2": "Fs2.mp3",
+        A2: "A2.mp3",
+        C3: "C3.mp3",
+        "D#3": "Ds3.mp3",
+        "F#3": "Fs3.mp3",
+        A3: "A3.mp3",
+        C4: "C4.mp3",
+        "D#4": "Ds4.mp3",
+        "F#4": "Fs4.mp3",
+        A4: "A4.mp3",
+        C5: "C5.mp3"
+    },
+    baseUrl: "https://tonejs.github.io/audio/salamander/"
 }).connect(reverb);
 
-chorus.start();
 
-const synth = new Tone.Synth({
-    oscillator: {
-        type: "triangle"
-    },
-    envelope: {
-        attack: 0.03,
-        decay: 0.25,
-        sustain: 0.35,
-        release: 1.2
-    }
-}).connect(chorus);
 
 
 
@@ -132,6 +158,7 @@ const drumSynth = new Tone.MembraneSynth({
         release: 0.04
     }
 }).toDestination();
+drumSynth.volume.value = 6;
 
 
 
