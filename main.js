@@ -131,6 +131,10 @@ const synth = new Tone.Sampler({
 
 
 // create drum synth
+
+
+
+// -----------version 1---------
 // const drumSynth = new Tone.MembraneSynth({
 //     pitchDecay: 0.03,
 //     octaves: 4,
@@ -145,6 +149,7 @@ const synth = new Tone.Sampler({
 //     }
 // }).toDestination();
 
+// -------version 2-----------------
 const drumSynth = new Tone.MembraneSynth({
     pitchDecay: 0.05,
     octaves: 2,
@@ -159,6 +164,23 @@ const drumSynth = new Tone.MembraneSynth({
     }
 }).toDestination();
 drumSynth.volume.value = 6;
+
+// ----------version 3----------------
+// const drumSynth = new Tone.MembraneSynth({
+//     pitchDecay: 0.04,
+//     octaves: 1.5,
+//     oscillator: {
+//         type: "sine"
+//     },
+//     envelope: {
+//         attack: 0.001,
+//         decay: 0.25,
+//         sustain: 0,
+//         release: 0.08
+//     }
+// }).toDestination();
+//
+// drumSynth.volume.value = 5;
 
 
 
