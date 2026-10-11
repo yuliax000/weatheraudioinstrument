@@ -25,13 +25,14 @@ const grassIcon = document.getElementById('grassIcon');
 //I found that generating falling images only within their corresponding sections felt a little repetitive and did not reflect how weather behaves in reality. For example, rain would not fall within a strictly defined area. Therefore, I expanded the range of the falling icons to cover the entire webpage. I also changed the trigger interaction so that users click the corresponding weather image to generate the falling icons, rather than clicking anywhere within a section. In other words, each weather image now works like a button that generates its corresponding visual elements.
 
 
-
 const main = document.querySelector("main");
 
 // find volume slider
 
 const volumeSlider = document.getElementById('volumeSlider');
 const volumeHand = document.getElementById('volumeHand');
+
+
 
 
     // slider value binding with hand position
@@ -269,30 +270,46 @@ introDialogClose.addEventListener('click', async function (){
 // add click events to weather elements
 sunIcon.addEventListener ("click", function() {
     const note = pickRandomNote(sunNotes);
+    const duration = "4n";
 
-    synth.triggerAttackRelease(note, "4n");
+    synth.triggerAttackRelease(note, duration);
+
     createSkyFallingIcon("assets/sun.png", "sunFall");
+
+    recordPerformanceEvent("sun", note, duration);
+
 });
 
 rainIcon.addEventListener ("click", function() {
     const note = pickRandomNote(rainNotes);
+    const duration = "2n";
 
-    synth.triggerAttackRelease(note, "2n");
+    synth.triggerAttackRelease(note, duration);
     createSkyFallingIcon("assets/water.png", "rainFall")
+    recordPerformanceEvent("rain", note, duration);
+
 });
 
 thunderIcon.addEventListener("click", function() {
     const note = pickRandomNote(thunderNotes);
 
-    synth.triggerAttackRelease(note, "8n");
+    const duration = "8n";
+
+    synth.triggerAttackRelease(note, duration);
     createSkyFallingIcon("assets/thunder.png", "thunderFall");
+
+    recordPerformanceEvent("thunder", note, duration);
+
 });
 
 windIcon.addEventListener("click", function() {
     const note = pickRandomNote(windNotes);
-
-    synth.triggerAttackRelease(note, "1n");
+    const duration = "1n";
+    synth.triggerAttackRelease(note, duration);
     createSkyFallingIcon("assets/leaf.png", "windFall");
+
+    recordPerformanceEvent("wind", note, duration);
+
 });
 
 drum.addEventListener("click", function (){
@@ -435,9 +452,55 @@ function showGrassAt(position) {
 
 
 
+// add record and replay function
+let performanceEvents = [];
+let performanceStartTime = null;
 
 
+function recordPerformanceEvent(weatherName, note, duration) {
+    if (performanceStartTime === null) {
+        performanceStartTime = Date.now();
+    }
 
+    const eventTime = Date.now() - performanceStartTime;
+
+    performanceEvents.push({
+        weatherName: weatherName,
+        note: note,
+        duration: duration,
+        time: eventTime
+    });
+}
+
+
+function replayPerformance() {
+    performanceEvents.forEach(function(event) {
+        setTimeout(function() {
+            playRecordedEvent(event);
+        }, event.time);
+    });
+}
+
+
+function playRecordedEvent(event) {
+    synth.triggerAttackRelease(event.note, event.duration);
+
+    if (event.weatherName === "sun") {
+        createSkyFallingIcon("assets/sun.png", "sunFall");
+    }
+
+    if (event.weatherName === "rain") {
+        createSkyFallingIcon("assets/water.png", "rainFall");
+    }
+
+    if (event.weatherName === "thunder") {
+        createSkyFallingIcon("assets/thunder.png", "thunderFall");
+    }
+
+    if (event.weatherName === "wind") {
+        createSkyFallingIcon("assets/leaf.png", "windFall");
+    }
+}
 
 
 
