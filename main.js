@@ -26,7 +26,7 @@ const grassIcon = document.getElementById('grassIcon');
 
 
 
-const main = document.querySelector("main")
+const main = document.querySelector("main");
 
 // find volume slider
 
@@ -132,7 +132,7 @@ const synth = new Tone.Sampler({
 
 // create drum synth
 
-
+const drumBus = new Tone.Gain(1.2).toDestination();
 
 // -----------version 1---------
 // const drumSynth = new Tone.MembraneSynth({
@@ -162,8 +162,8 @@ const originalDrumSynth = new Tone.MembraneSynth({
         sustain: 0,
         release: 0.04
     }
-}).toDestination();
-drumSynth.volume.value = 6;
+}).connect(drumBus);
+originalDrumSynth.volume.value = 6;
 
 // ----------version 3----------------
 // const drumSynth = new Tone.MembraneSynth({
@@ -196,7 +196,7 @@ const kickSynth = new Tone.MembraneSynth({
         sustain: 0,
         release: 0.05
     }
-}).toDestination();
+}).connect(drumBus);
 
 kickSynth.volume.value = 4;
 
@@ -210,7 +210,7 @@ const hitNoise = new Tone.NoiseSynth({
         sustain: 0,
         release: 0.02
     }
-}).toDestination();
+}).connect(drumBus);
 
 hitNoise.volume.value = -8;
 
@@ -296,9 +296,7 @@ windIcon.addEventListener("click", function() {
 });
 
 drum.addEventListener("click", function (){
-    const note = pickRandomNote(drumNotes);
-
-    drumSynth.triggerAttackRelease(note, "16n");
+   playDrumSound();
 });
 
 
@@ -368,9 +366,21 @@ function playDrumSound() {
     const note = pickRandomNote(drumNotes);
     // drumSynth.triggerAttackRelease(note,"16n");
 
-    kickSynth.triggerAttackRelease(note,"16n");
+    const drumType = pickRandomNote(["original", "kick"]);
 
-    hitNoise.triggerAttackRelease("32n");
+
+
+    if(drumType === "original"){
+        originalDrumSynth.triggerAttackRelease(note,"16n");
+    }
+
+    if(drumType === "kick"){
+        kickSynth.triggerAttackRelease(note,"16n");
+
+        hitNoise.triggerAttackRelease("32n");
+
+
+    }
 
 }
 
