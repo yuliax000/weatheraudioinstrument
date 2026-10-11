@@ -499,6 +499,37 @@ dialog[open] {
 }
 
 
+.windFall {
+    animation: windFall 3s ease-in-out forwards;
+}
+
+@keyframes windFall {
+    0% {
+        top: -4rem;
+        transform: translateX(-50%) translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    25% {
+        transform: translateX(-50%) translateX(-2rem) rotate(-18deg);
+    }
+
+    50% {
+        transform: translateX(-50%) translateX(2rem) rotate(15deg);
+    }
+
+    75% {
+        transform: translateX(-50%) translateX(-1rem) rotate(-10deg);
+    }
+
+    100% {
+        top: calc(100% - var(--grass-height));
+        transform: translateX(-50%) translateX(1.5rem) rotate(20deg);
+        opacity: 1;
+    }
+}
+
+
 
 
 
