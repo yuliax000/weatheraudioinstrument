@@ -150,7 +150,7 @@ const synth = new Tone.Sampler({
 // }).toDestination();
 
 // -------version 2-----------------
-const drumSynth = new Tone.MembraneSynth({
+const originalDrumSynth = new Tone.MembraneSynth({
     pitchDecay: 0.05,
     octaves: 2,
     oscillator: {
@@ -181,6 +181,38 @@ drumSynth.volume.value = 6;
 // }).toDestination();
 //
 // drumSynth.volume.value = 5;
+
+
+// --------v4---------------
+const kickSynth = new Tone.MembraneSynth({
+    pitchDecay: 0.04,
+    octaves: 1.5,
+    oscillator: {
+        type: "sine"
+    },
+    envelope: {
+        attack: 0.001,
+        decay: 0.22,
+        sustain: 0,
+        release: 0.05
+    }
+}).toDestination();
+
+kickSynth.volume.value = 4;
+
+const hitNoise = new Tone.NoiseSynth({
+    noise: {
+        type: "white"
+    },
+    envelope: {
+        attack: 0.001,
+        decay: 0.04,
+        sustain: 0,
+        release: 0.02
+    }
+}).toDestination();
+
+hitNoise.volume.value = -8;
 
 
 
@@ -334,7 +366,12 @@ function pickRandomNote(notes) {
 
 function playDrumSound() {
     const note = pickRandomNote(drumNotes);
-    drumSynth.triggerAttackRelease(note,"16n");
+    // drumSynth.triggerAttackRelease(note,"16n");
+
+    kickSynth.triggerAttackRelease(note,"16n");
+
+    hitNoise.triggerAttackRelease("32n");
+
 }
 
 
