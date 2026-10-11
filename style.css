@@ -430,8 +430,10 @@ dialog[open] {
 }
 
 
+/*The sun falls slowly and directly, inspired by the falling sun in Plants vs. Zombies. I wanted to recreate its gentle movement, which feels like sunlight softly shining down.*/
+
 .sunFall {
-    animation: sunFall 1.5s ease-in forwards;
+    animation: sunFall 3s ease-in forwards;
 }
 
 @keyframes sunFall {
@@ -450,6 +452,23 @@ dialog[open] {
 
 
 
+.rainFall {
+    animation: rainFall 1.5s linear forwards;
+}
+
+@keyframes rainFall {
+    from {
+        top: -4rem;
+        transform: translateX(-50%) scale(0.9);
+        opacity: 1;
+    }
+
+    to {
+        top: calc(100% - var(--grass-height));
+        transform: translateX(-50%) scale(0.9);
+        opacity: 1;
+    }
+}
 
 
 
