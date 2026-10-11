@@ -276,7 +276,11 @@ dialog[open] {
     top: -4rem;
     width: 2.5rem;
     transform: translateX(-50%);
-    animation: skyFall 2s linear forwards;
+
+    /*Each weather icon has its own animation to reflect its unique characteristics and movement.*/
+
+    /*animation: skyFall 2s linear forwards;*/
+
     pointer-events: none;
 }
 
@@ -426,6 +430,23 @@ dialog[open] {
 }
 
 
+.sunFall {
+    animation: sunFall 1.5s ease-in forwards;
+}
+
+@keyframes sunFall {
+    from {
+        top: -4rem;
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+
+    to {
+        top: calc(100% - var(--grass-height));
+        transform: translateX(-50%) scale(1.1);
+        opacity: 1;
+    }
+}
 
 
 

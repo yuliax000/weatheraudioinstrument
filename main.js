@@ -299,7 +299,7 @@ drum.addEventListener("click", function (){
 
 // let the icons falling from whole sky area
 
-function createSkyFallingIcon(imagePath) {
+function createSkyFallingIcon(imagePath, fallClass) {
     const fallingIcon = document.createElement("img");
 
     const landingPosition = 5 + Math.random() * 90;
