@@ -239,28 +239,28 @@ sunIcon.addEventListener ("click", function() {
     const note = pickRandomNote(sunNotes);
 
     synth.triggerAttackRelease(note, "4n");
-    createSkyFallingIcon("assets/sun.png");
+    createSkyFallingIcon("assets/sun.png", "sunFall");
 });
 
 rainIcon.addEventListener ("click", function() {
     const note = pickRandomNote(rainNotes);
 
     synth.triggerAttackRelease(note, "2n");
-    createSkyFallingIcon("assets/water.png")
+    createSkyFallingIcon("assets/water.png", "rainFall")
 });
 
 thunderIcon.addEventListener("click", function() {
     const note = pickRandomNote(thunderNotes);
 
     synth.triggerAttackRelease(note, "8n");
-    createSkyFallingIcon("assets/thunder.png");
+    createSkyFallingIcon("assets/thunder.png", "thunderFall");
 });
 
 windIcon.addEventListener("click", function() {
     const note = pickRandomNote(windNotes);
 
     synth.triggerAttackRelease(note, "1n");
-    createSkyFallingIcon("assets/leaf.png")
+    createSkyFallingIcon("assets/leaf.png", "windFall");
 });
 
 drum.addEventListener("click", function (){
@@ -304,7 +304,7 @@ function createSkyFallingIcon(imagePath) {
 
     const landingPosition = 5 + Math.random() * 90;
 
-    fallingIcon.classList.add("skyFallingIcon");
+    fallingIcon.classList.add("skyFallingIcon", fallClass);
     fallingIcon.src = imagePath;
     fallingIcon.alt = "";
     fallingIcon.style.left = `${landingPosition}%`;
