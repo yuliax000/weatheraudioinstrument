@@ -490,7 +490,6 @@ function replayPerformance() {
         }, event.time);
 
         replayTimeouts.push(timeoutId);
-        )
     });
 }
 
@@ -520,5 +519,11 @@ function stopReplay() {
     replayTimeouts.forEach(function(timeoutId) {clearTimeout(timeoutId)});
 
     replayTimeouts=[];
+}
+
+function clearPerformance() {
+    stopReplay();
+    performanceEvents = [];
+    performanceStartTime = null;
 }
 
