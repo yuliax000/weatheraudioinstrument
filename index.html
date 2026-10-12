@@ -23,17 +23,45 @@
  <button id="introButtonClose">OK</button>
  </dialog>
 
+<!--adding replay/stop/clear button-->
+ <section class="controlPanel">
+     <section class="playBackControls">
+         <button class="iconButton" id="replayButton" type="button"
+         >
+             <img src="" alt="replay">
+         </button>
+
+
+         <button class="iconButton" id="stopButton" type="button">
+             <img src="" alt="stop">
+         </button>
+
+         <button class="iconButton" id="clearButton" type="button">
+             <img src="" alt="clear">
+         </button>
+     </section>
+
+
+     <!-- adding volume controller-->
+     <!-- Compared with an abstract circular slider, I think a more recognisable icon can help children understand the intended interaction more clearly. Therefore, I decided to add a hand icon below the volume slider as a visual cue.-->
+     <section class="volumeControl">
+         <div class="sliderWrap">
+             <input id="volumeSlider" type="range" min="0" max="100" value="80">
+             <img id="volumeHand" src="assets/volume-finger.png" alt="">
+         </div>
+     </section>
+
+
+     </section>
 
 
 
-<!-- adding volume controller-->
-<!-- Compared with an abstract circular slider, I think a more recognisable icon can help children understand the intended interaction more clearly. Therefore, I decided to add a hand icon below the volume slider as a visual cue.-->
- <section class="volumeControl">
-     <div class="sliderWrap">
-         <input id="volumeSlider" type="range" min="0" max="100" value="80">
-         <img id="volumeHand" src="assets/volume-finger.png" alt="">
-     </div>
- </section>
+
+
+
+
+
+
 
 
 
