@@ -485,7 +485,7 @@ function replayPerformance() {
 
     stopReplay();
     performanceEvents.forEach(function(event) {
-        setTimeout(function() {
+        const timeoutId = setTimeout(function() {
             playRecordedEvent(event);
         }, event.time);
 
