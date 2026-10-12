@@ -462,6 +462,8 @@ function showGrassAt(position) {
 let performanceEvents = [];
 let performanceStartTime = null;
 
+let replayTimeouts = [];
+
 
 function recordPerformanceEvent(weatherName, note, duration) {
     if (performanceStartTime === null) {
@@ -480,10 +482,15 @@ function recordPerformanceEvent(weatherName, note, duration) {
 
 
 function replayPerformance() {
+
+    stopReplay();
     performanceEvents.forEach(function(event) {
         setTimeout(function() {
             playRecordedEvent(event);
         }, event.time);
+
+        replayTimeouts.push(timeoutId);
+        )
     });
 }
 
@@ -509,5 +516,9 @@ function playRecordedEvent(event) {
 }
 
 
+function stopReplay() {
+    replayTimeouts.forEach(function(timeoutId) {clearTimeout(timeoutId)});
 
+    replayTimeouts=[];
+}
 
