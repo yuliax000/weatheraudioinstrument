@@ -551,6 +551,8 @@ function playSun() {
 
     recordPerformanceEvent("sun", note, duration);
 
+    showKeyFeedback(sun);
+
 }
 
 function playRain() {
@@ -560,6 +562,8 @@ function playRain() {
     synth.triggerAttackRelease(note, duration);
     createSkyFallingIcon("assets/water.png", "rainFall")
     recordPerformanceEvent("rain", note, duration);
+
+    showKeyFeedback(rain);
 
 }
 
@@ -573,6 +577,7 @@ function playThunder() {
 
     recordPerformanceEvent("thunder", note, duration);
 
+    showKeyFeedback(thunder);
 }
 
 function playWind() {
@@ -583,6 +588,15 @@ function playWind() {
 
     recordPerformanceEvent("wind", note, duration);
 
+    showKeyFeedback(wind);
+}
+// adding keyboard feedback
+function showKeyFeedback(container) {
+    container.classList.add("keyFeedback");
+
+    container.addEventListener("animationend", function() {
+        container.classList.remove("keyFeedback");
+    }, { once: true });
 }
 
 

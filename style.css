@@ -73,6 +73,31 @@ main {
 }
 
 
+.weather.keyFeedback {
+    animation: weatherKeyFeedback 0.18s ease;
+}
+
+@keyframes weatherKeyFeedback {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+        filter: brightness(1.25);
+    }
+
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+}
+
+
+
+
+
 .weatherIcon {
     cursor: pointer;
 }
@@ -451,7 +476,7 @@ dialog[open] {
     }
 
     to {
-        top: calc(100% - var(--grass-height));
+        top: calc(100% - var(--grass-height) + 3rem);
         transform: translateX(-50%) scale(1.1);
         opacity: 1;
     }
@@ -471,7 +496,7 @@ dialog[open] {
     }
 
     to {
-        top: calc(100% - var(--grass-height));
+        top: calc(100% - var(--grass-height) + 3rem);
         transform: translateX(-50%) scale(0.9);
         opacity: 1;
     }
@@ -499,7 +524,7 @@ dialog[open] {
     }
 
     100% {
-        top: calc(100% - var(--grass-height));
+        top: calc(100% - var(--grass-height) + 3rem);
         transform: translateX(-50%) scale(1.1) rotate(5deg);
         opacity: 1;
     }
@@ -530,7 +555,7 @@ dialog[open] {
     }
 
     100% {
-        top: calc(100% - var(--grass-height));
+        top: calc(100% - var(--grass-height) + 3rem);
         transform: translateX(-50%) translateX(1.5rem) rotate(20deg);
         opacity: 1;
     }
