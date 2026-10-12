@@ -69,6 +69,30 @@ volumeSlider.addEventListener('input', updateVolumeControl);
 updateVolumeControl();
 
 
+const sunKeys = [
+    "q", "w",
+    "a", "s",
+    "z", "x"
+];
+
+const rainKeys = [
+    "e", "r",
+    "d", "f",
+    "c", "v"
+];
+
+const thunderKeys = [
+    "t", "y", "u",
+    "g", "h", "j",
+    "b", "n"
+];
+
+const windKeys = [
+    "i", "o", "p",
+    "k", "l",
+    "m"
+];
+
 
 
 // create reverb
@@ -274,54 +298,43 @@ introDialogClose.addEventListener('click', async function (){
 // }
 
 // add click events to weather elements
-sunIcon.addEventListener ("click", function() {
-    const note = pickRandomNote(sunNotes);
-    const duration = "4n";
+sunIcon.addEventListener ("click", playSun);
 
-    synth.triggerAttackRelease(note, duration);
+rainIcon.addEventListener ("click", playRain);
 
-    createSkyFallingIcon("assets/sun.png", "sunFall");
+thunderIcon.addEventListener("click", playThunder);
 
-    recordPerformanceEvent("sun", note, duration);
-
-});
-
-rainIcon.addEventListener ("click", function() {
-    const note = pickRandomNote(rainNotes);
-    const duration = "2n";
-
-    synth.triggerAttackRelease(note, duration);
-    createSkyFallingIcon("assets/water.png", "rainFall")
-    recordPerformanceEvent("rain", note, duration);
-
-});
-
-thunderIcon.addEventListener("click", function() {
-    const note = pickRandomNote(thunderNotes);
-
-    const duration = "8n";
-
-    synth.triggerAttackRelease(note, duration);
-    createSkyFallingIcon("assets/thunder.png", "thunderFall");
-
-    recordPerformanceEvent("thunder", note, duration);
-
-});
-
-windIcon.addEventListener("click", function() {
-    const note = pickRandomNote(windNotes);
-    const duration = "1n";
-    synth.triggerAttackRelease(note, duration);
-    createSkyFallingIcon("assets/leaf.png", "windFall");
-
-    recordPerformanceEvent("wind", note, duration);
-
-});
+windIcon.addEventListener("click", playWind);
 
 drum.addEventListener("click", function (){
    playDrumSound();
 });
 
+
+
+document.addEventListener("keydown", function(event) {
+    if (event.repeat) {
+        return;
+    }
+
+    const key = event.key.toLowerCase();
+
+    if (sunKeys.includes(key)) {
+        playSun();
+    }
+
+    if (rainKeys.includes(key)) {
+        playRain();
+    }
+
+    if (thunderKeys.includes(key)) {
+        playThunder();
+    }
+
+    if (windKeys.includes(key)) {
+        playWind();
+    }
+});
 
 
 
@@ -526,4 +539,51 @@ function clearPerformance() {
     performanceEvents = [];
     performanceStartTime = null;
 }
+
+
+function playSun() {
+    const note = pickRandomNote(sunNotes);
+    const duration = "4n";
+
+    synth.triggerAttackRelease(note, duration);
+
+    createSkyFallingIcon("assets/sun.png", "sunFall");
+
+    recordPerformanceEvent("sun", note, duration);
+
+}
+
+function playRain() {
+    const note = pickRandomNote(rainNotes);
+    const duration = "2n";
+
+    synth.triggerAttackRelease(note, duration);
+    createSkyFallingIcon("assets/water.png", "rainFall")
+    recordPerformanceEvent("rain", note, duration);
+
+}
+
+function playThunder() {
+    const note = pickRandomNote(thunderNotes);
+
+    const duration = "8n";
+
+    synth.triggerAttackRelease(note, duration);
+    createSkyFallingIcon("assets/thunder.png", "thunderFall");
+
+    recordPerformanceEvent("thunder", note, duration);
+
+}
+
+function playWind() {
+    const note = pickRandomNote(windNotes);
+    const duration = "1n";
+    synth.triggerAttackRelease(note, duration);
+    createSkyFallingIcon("assets/leaf.png", "windFall");
+
+    recordPerformanceEvent("wind", note, duration);
+
+}
+
+
 
