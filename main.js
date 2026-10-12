@@ -33,7 +33,13 @@ const volumeSlider = document.getElementById('volumeSlider');
 const volumeHand = document.getElementById('volumeHand');
 
 
+const replayButton = document.getElementById("replayButton");
+const stopButton = document.getElementById("stopButton");
+const clearButton = document.getElementById("clearButton");
 
+replayButton.addEventListener("click", replayPerformance);
+stopButton.addEventListener("click", stopReplay);
+clearButton.addEventListener("click", clearPerformance);
 
     // slider value binding with hand position
 
