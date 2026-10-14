@@ -1,5 +1,6 @@
 // browser loads html page > browser loads js > open the dialog > user closes the dialog > audio system loads > user clicks sound button.
 
+
 // find the dialog
 const introDialog = document.getElementById('introDialog');
 // find intro button to close modal
