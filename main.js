@@ -1,13 +1,34 @@
 // browser loads html page > browser loads js > open the dialog > user closes the dialog > audio system loads > user clicks sound button.
 
+const introDialog = document.getElementById("introDialog");
+const introDialogClose = document.getElementById("introButtonClose");
 
-// find the dialog
-const introDialog = document.getElementById('introDialog');
-// find intro button to close modal
-const introDialogClose = document.getElementById('introButtonClose');
-// show the found element in the browser console
 
-// console.log(introDialog);
+const introPages = [
+    {
+        image: "assets/headphone.png",
+        title: "Use headphones",
+        text: "This website makes sound."
+    },
+    {
+        image: "assets/Keyboard.png",
+        title: "Play with click and keys",
+        text: "Left keys make sun and rain. Right keys make thunder and wind."
+    },
+    {
+        image: "assets/play.png",
+        title: "Replay",
+        text: "Listen to your music!"
+    }
+];
+
+let introPageIndex = 0;
+
+const introImage = document.getElementById("introImage");
+const introTitle = document.getElementById("introTitle");
+const introText = document.getElementById("introText");
+
+
 
 
 //find weather elements
@@ -281,12 +302,46 @@ const drumNotes = [
 
 ////// Dialog
 // open the dialog
+showIntroPage();
 introDialog.showModal();
 //close the dialog
-introDialogClose.addEventListener('click', async function (){
-    await Tone.start();
-    introDialog.close();
-});
+introDialogClose.addEventListener('click', nextIntroPage);
+
+    async function nextIntroPage() {
+        if (introPageIndex < introPages.length - 1) {
+            introPageIndex = introPageIndex + 1;
+            showIntroPage();
+            return;
+        }
+
+        await Tone.start();
+        await Tone.loaded();
+        introDialog.close();
+    }
+
+// click to next page
+    introDialog.addEventListener("click", function (event) {
+        if (event.target === introDialogClose) {
+            return;
+        }
+
+        nextIntroPage();
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (!introDialog.open) {
+            return;
+        }
+
+        if (event.key === "Enter" || event.key === " " || event.key === "ArrowRight") {
+            event.preventDefault();
+            nextIntroPage();
+        }
+    });
+
+
+
+
 
 
 // whenever the dialog is closed, run toneInit
@@ -299,44 +354,50 @@ introDialogClose.addEventListener('click', async function (){
 // }
 
 // add click events to weather elements
-sunIcon.addEventListener ("click", playSun);
+    sunIcon.addEventListener("click", playSun);
 
-rainIcon.addEventListener ("click", playRain);
+    rainIcon.addEventListener("click", playRain);
 
-thunderIcon.addEventListener("click", playThunder);
+    thunderIcon.addEventListener("click", playThunder);
 
-windIcon.addEventListener("click", playWind);
+    windIcon.addEventListener("click", playWind);
 
-drum.addEventListener("click", function (){
-   playDrumSound();
-});
+    drum.addEventListener("click", function () {
+        playDrumSound();
+    });
 
 
 
-document.addEventListener("keydown", function(event) {
-    if (event.repeat) {
-        return;
-    }
 
-    const key = event.key.toLowerCase();
 
-    if (sunKeys.includes(key)) {
-        playSun();
-    }
+    document.addEventListener("keydown", function (event) {
 
-    if (rainKeys.includes(key)) {
-        playRain();
-    }
+        if (introDialog.open) {
+            return;
+        }
 
-    if (thunderKeys.includes(key)) {
-        playThunder();
-    }
+        if (event.repeat) {
+            return;
+        }
 
-    if (windKeys.includes(key)) {
-        playWind();
-    }
-});
+        const key = event.key.toLowerCase();
 
+        if (sunKeys.includes(key)) {
+            playSun();
+        }
+
+        if (rainKeys.includes(key)) {
+            playRain();
+        }
+
+        if (thunderKeys.includes(key)) {
+            playThunder();
+        }
+
+        if (windKeys.includes(key)) {
+            playWind();
+        }
+    });
 
 
 //Visual: create emoji when sections are clicked.
@@ -366,72 +427,67 @@ document.addEventListener("keydown", function(event) {
 
 // let the icons falling from whole sky area
 
-function createSkyFallingIcon(imagePath, fallClass) {
-    const fallingIcon = document.createElement("img");
+    function createSkyFallingIcon(imagePath, fallClass) {
+        const fallingIcon = document.createElement("img");
 
-    const landingPosition = 5 + Math.random() * 90;
+        const landingPosition = 5 + Math.random() * 90;
 
-    fallingIcon.classList.add("skyFallingIcon", fallClass);
-    fallingIcon.src = imagePath;
-    fallingIcon.alt = "";
-    fallingIcon.style.left = `${landingPosition}%`;
+        fallingIcon.classList.add("skyFallingIcon", fallClass);
+        fallingIcon.src = imagePath;
+        fallingIcon.alt = "";
+        fallingIcon.style.left = `${landingPosition}%`;
 
-    main.appendChild(fallingIcon);
+        main.appendChild(fallingIcon);
 
-    fallingIcon.addEventListener("animationend", function() {
-        playDrumSound();
-        showDrumHit();
-        showGrassAt(landingPosition);
-        fallingIcon.remove();
-    });
-}
-
-
-
-
+        fallingIcon.addEventListener("animationend", function () {
+            playDrumSound();
+            showDrumHit();
+            showGrassAt(landingPosition);
+            fallingIcon.remove();
+        });
+    }
 
 
 // function to pick a random note from arrays
-function pickRandomNote(notes) {
-    const randomIndex = Math.floor(Math.random() * notes.length);
-    return notes[randomIndex];
-}
+    function pickRandomNote(notes) {
+        const randomIndex = Math.floor(Math.random() * notes.length);
+        return notes[randomIndex];
+    }
 
 // function to play drum
 
-function playDrumSound() {
-    const note = pickRandomNote(drumNotes);
-    // drumSynth.triggerAttackRelease(note,"16n");
+    function playDrumSound() {
+        const note = pickRandomNote(drumNotes);
+        // drumSynth.triggerAttackRelease(note,"16n");
 
-    const drumType = pickRandomNote(["original", "kick"]);
+        const drumType = pickRandomNote(["original", "kick"]);
 
 
+        if (drumType === "original") {
+            originalDrumSynth.triggerAttackRelease(note, "16n");
+        }
 
-    if(drumType === "original"){
-        originalDrumSynth.triggerAttackRelease(note,"16n");
+        if (drumType === "kick") {
+            kickSynth.triggerAttackRelease(note, "16n");
+
+            hitNoise.triggerAttackRelease("32n");
+
+
+        }
+
     }
-
-    if(drumType === "kick"){
-        kickSynth.triggerAttackRelease(note,"16n");
-
-        hitNoise.triggerAttackRelease("32n");
-
-
-    }
-
-}
 
 
 // show animation when the falling Emoji hit the Drum
 
-function showDrumHit(){
-    drum.classList.add('drumHit');
-    // showGrassPop();
+    function showDrumHit() {
+        drum.classList.add('drumHit');
+        // showGrassPop();
 
-    drum.addEventListener('animationend', function() {
-        drum.classList.remove('drumHit');
-    }, {once: true});
-}
+        drum.addEventListener('animationend', function () {
+            drum.classList.remove('drumHit');
+        }, {once: true});
+    }
 
 // I chose to make the grass pop up while the icons hit the ground because it provides more visual feedback
 // grass pop up function
@@ -454,151 +510,168 @@ function showDrumHit(){
 
 // show grass at the corresponding position
 
-function showGrassAt(position) {
-    const grass = document.createElement("img");
+    function showGrassAt(position) {
+        const grass = document.createElement("img");
 
-    grass.classList.add("grassPop");
-    grass.src = "assets/grass60.png";
-    grass.alt = "";
-    grass.style.left = `${position}%`;
+        grass.classList.add("grassPop");
+        grass.src = "assets/grass60.png";
+        grass.alt = "";
+        grass.style.left = `${position}%`;
 
-    drum.appendChild(grass);
+        drum.appendChild(grass);
 
-    grass.addEventListener("animationend", function() {
-        grass.remove();
-    });
-}
-
-
+        grass.addEventListener("animationend", function () {
+            grass.remove();
+        });
+    }
 
 
 // add record and replay function
-let performanceEvents = [];
-let performanceStartTime = null;
+    let performanceEvents = [];
+    let performanceStartTime = null;
 
-let replayTimeouts = [];
+    let replayTimeouts = [];
 
 
-function recordPerformanceEvent(weatherName, note, duration) {
-    if (performanceStartTime === null) {
-        performanceStartTime = Date.now();
+    function recordPerformanceEvent(weatherName, note, duration) {
+        if (performanceStartTime === null) {
+            performanceStartTime = Date.now();
+        }
+
+        const eventTime = Date.now() - performanceStartTime;
+
+        performanceEvents.push({
+            weatherName: weatherName,
+            note: note,
+            duration: duration,
+            time: eventTime
+        });
     }
 
-    const eventTime = Date.now() - performanceStartTime;
 
-    performanceEvents.push({
-        weatherName: weatherName,
-        note: note,
-        duration: duration,
-        time: eventTime
-    });
-}
+    function replayPerformance() {
 
+        stopReplay();
+        performanceEvents.forEach(function (event) {
+            const timeoutId = setTimeout(function () {
+                playRecordedEvent(event);
+            }, event.time);
 
-function replayPerformance() {
-
-    stopReplay();
-    performanceEvents.forEach(function(event) {
-        const timeoutId = setTimeout(function() {
-            playRecordedEvent(event);
-        }, event.time);
-
-        replayTimeouts.push(timeoutId);
-    });
-}
+            replayTimeouts.push(timeoutId);
+        });
+    }
 
 
-function playRecordedEvent(event) {
-    synth.triggerAttackRelease(event.note, event.duration);
+    function playRecordedEvent(event) {
+        synth.triggerAttackRelease(event.note, event.duration);
 
-    if (event.weatherName === "sun") {
+        if (event.weatherName === "sun") {
+            createSkyFallingIcon("assets/sun.png", "sunFall");
+        }
+
+        if (event.weatherName === "rain") {
+            createSkyFallingIcon("assets/water.png", "rainFall");
+        }
+
+        if (event.weatherName === "thunder") {
+            createSkyFallingIcon("assets/thunder.png", "thunderFall");
+        }
+
+        if (event.weatherName === "wind") {
+            createSkyFallingIcon("assets/leaf.png", "windFall");
+        }
+    }
+
+
+    function stopReplay() {
+        replayTimeouts.forEach(function (timeoutId) {
+            clearTimeout(timeoutId)
+        });
+
+        replayTimeouts = [];
+    }
+
+    function clearPerformance() {
+        stopReplay();
+        performanceEvents = [];
+        performanceStartTime = null;
+    }
+
+
+    function playSun() {
+        const note = pickRandomNote(sunNotes);
+        const duration = "4n";
+
+        synth.triggerAttackRelease(note, duration);
+
         createSkyFallingIcon("assets/sun.png", "sunFall");
+
+        recordPerformanceEvent("sun", note, duration);
+
+        showKeyFeedback(sun);
+
     }
 
-    if (event.weatherName === "rain") {
-        createSkyFallingIcon("assets/water.png", "rainFall");
+    function playRain() {
+        const note = pickRandomNote(rainNotes);
+        const duration = "2n";
+
+        synth.triggerAttackRelease(note, duration);
+        createSkyFallingIcon("assets/water.png", "rainFall")
+        recordPerformanceEvent("rain", note, duration);
+
+        showKeyFeedback(rain);
+
     }
 
-    if (event.weatherName === "thunder") {
+    function playThunder() {
+        const note = pickRandomNote(thunderNotes);
+
+        const duration = "8n";
+
+        synth.triggerAttackRelease(note, duration);
         createSkyFallingIcon("assets/thunder.png", "thunderFall");
+
+        recordPerformanceEvent("thunder", note, duration);
+
+        showKeyFeedback(thunder);
     }
 
-    if (event.weatherName === "wind") {
+    function playWind() {
+        const note = pickRandomNote(windNotes);
+        const duration = "1n";
+        synth.triggerAttackRelease(note, duration);
         createSkyFallingIcon("assets/leaf.png", "windFall");
+
+        recordPerformanceEvent("wind", note, duration);
+
+        showKeyFeedback(wind);
     }
-}
 
-
-function stopReplay() {
-    replayTimeouts.forEach(function(timeoutId) {clearTimeout(timeoutId)});
-
-    replayTimeouts=[];
-}
-
-function clearPerformance() {
-    stopReplay();
-    performanceEvents = [];
-    performanceStartTime = null;
-}
-
-
-function playSun() {
-    const note = pickRandomNote(sunNotes);
-    const duration = "4n";
-
-    synth.triggerAttackRelease(note, duration);
-
-    createSkyFallingIcon("assets/sun.png", "sunFall");
-
-    recordPerformanceEvent("sun", note, duration);
-
-    showKeyFeedback(sun);
-
-}
-
-function playRain() {
-    const note = pickRandomNote(rainNotes);
-    const duration = "2n";
-
-    synth.triggerAttackRelease(note, duration);
-    createSkyFallingIcon("assets/water.png", "rainFall")
-    recordPerformanceEvent("rain", note, duration);
-
-    showKeyFeedback(rain);
-
-}
-
-function playThunder() {
-    const note = pickRandomNote(thunderNotes);
-
-    const duration = "8n";
-
-    synth.triggerAttackRelease(note, duration);
-    createSkyFallingIcon("assets/thunder.png", "thunderFall");
-
-    recordPerformanceEvent("thunder", note, duration);
-
-    showKeyFeedback(thunder);
-}
-
-function playWind() {
-    const note = pickRandomNote(windNotes);
-    const duration = "1n";
-    synth.triggerAttackRelease(note, duration);
-    createSkyFallingIcon("assets/leaf.png", "windFall");
-
-    recordPerformanceEvent("wind", note, duration);
-
-    showKeyFeedback(wind);
-}
 // adding keyboard feedback
-function showKeyFeedback(container) {
-    container.classList.add("keyFeedback");
+    function showKeyFeedback(container) {
+        container.classList.add("keyFeedback");
 
-    container.addEventListener("animationend", function() {
-        container.classList.remove("keyFeedback");
-    }, { once: true });
-}
+        container.addEventListener("animationend", function () {
+            container.classList.remove("keyFeedback");
+        }, {once: true});
+    }
+
+
+// intro Dialog function
+    function showIntroPage() {
+        const page = introPages[introPageIndex];
+
+        introImage.src = page.image;
+        introTitle.textContent = page.title;
+        introText.textContent = page.text;
+
+        if (introPageIndex === introPages.length - 1) {
+            introDialogClose.textContent = "Start";
+        } else {
+            introDialogClose.textContent = "Next";
+        }
+    }
 
 
 

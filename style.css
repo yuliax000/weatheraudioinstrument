@@ -113,6 +113,41 @@ dialog[open] {
     border: var(--border);
 }
 
+
+#introDialog {
+    max-width: 22rem;
+    text-align: center;
+}
+
+.introPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.introImage {
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
+}
+
+#introTitle {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+#introText {
+    margin: 0;
+    font-size: 1rem;
+}
+
+#introButtonClose {
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+
 .drumContainer {
     position: absolute;
     left: 0;
