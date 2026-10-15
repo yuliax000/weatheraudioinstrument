@@ -20,6 +20,12 @@
     --color04:darkgrey;
     --border:  0.25rem double var(--color03);
     --grass-height: clamp(8rem, 24vh, 16rem);
+
+    --dialog-bg: #f0f8ff;
+    --dialog-text: #18354a;
+    --dialog-border: #afcee3;
+    --button-bg: #245f91;
+    --button-text: #ffffff;
 }
 
 
@@ -115,8 +121,23 @@ dialog[open] {
 
 
 #introDialog {
-    max-width: 22rem;
+
     text-align: center;
+    width: calc(100% - 2rem);
+    max-width: 24rem;
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+
+    padding: 1.25rem;
+    background: var(--dialog-bg);
+    color: var(--dialog-text);
+    border: 1px solid var(--dialog-border);
+    border-radius: 16px;
+
+}
+
+#introDialog::backdrop {
+    background: rgb(10 25 45 / 55%);
 }
 
 .introPage {
@@ -206,6 +227,42 @@ dialog[open] {
 }
 
 
+#introDialog button {
+    font: inherit;
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--button-bg);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+#introButtonClose {
+    min-width: 8rem;
+    background: var(--button-bg);
+    color: var(--button-text);
+}
+
+/*I use darker color for "next" and lighter for "play now" because I want the users to focus more on "next" when they first time open the page*/
+
+#introSkipButton {
+    background: transparent;
+    color: var(--dialog-text);
+    border-color: var(--dialog-border);
+}
+
+#introDialog button:hover {
+    background: var(--dialog-border);
+    color: var(--dialog-text);
+}
+
+#introDialog button:active {
+    transform: translateY(1px);
+}
+
+#introDialog button:focus-visible {
+    outline: 3px solid var(--button-bg);
+    outline-offset: 3px;
+}
 
 
 .drumContainer {
@@ -725,6 +782,12 @@ dialog[open] {
         --color02:white;
         --color03:darkgrey;
         --color04:lightgrey;
+
+        --dialog-bg: #142838;
+        --dialog-text: #edf6ff;
+        --dialog-border: #395a73;
+        --button-bg: #a8d8ff;
+        --button-text: #142838;
     }
     main {
         background-image: url("assets/background-night.svg");
