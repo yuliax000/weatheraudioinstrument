@@ -25,13 +25,40 @@ headphone reminder - interaction (mouse and keyboard) - replay function reminder
 <!--simple words!!!-->
 <dialog id="introDialog">
     <section class="introPage">
-        <img id="introImage" class="introImage" src="" alt="">
+        <div class="introImages">
+
+
+            <img id="introMouse" class="introImage"
+                 src="assets/handCursor.png" alt="Mouse" hidden>
+            <img id="introImage" class="introImage" src="" alt="">
+        </div>
+
         <h2 id="introTitle"></h2>
         <p id="introText"></p>
+
+        <ul id="introKeyGuide" hidden>
+            <li>
+                <img src="assets/sun100.png" alt="">
+                <span>Sun: Q W A S Z X</span>
+            </li>
+            <li>
+                <img src="assets/water100.png" alt="">
+                <span>Rain: E R D F C V</span>
+            </li>
+            <li>
+                <img src="assets/thunder100.png" alt="">
+                <span>Thunder: T Y U G H J B N</span>
+            </li>
+            <li>
+                <img src="assets/leaf100.png" alt="">
+                <span>Wind: I O P K L M</span>
+            </li>
+        </ul>
+    </section>
     </section>
 
     <section class="introActions">
-        <button id="introSkipButton" type="button">Skip</button>
+        <button id="introSkipButton" type="button">Play now</button>
         <button id="introButtonClose">Next</button>
     </section>
 

@@ -155,7 +155,46 @@ dialog[open] {
     margin-top: 1rem;
 }
 
+.introImages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
 
+/* 防止已有 img 的 display 样式覆盖 hidden */
+#introMouse[hidden],
+#introKeyGuide[hidden] {
+    display: none;
+}
+
+#introKeyGuide {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    text-align: left;
+}
+
+#introKeyGuide li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+#introKeyGuide li + li {
+    margin-top: 0.75rem;
+}
+
+#introKeyGuide img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+#introKeyGuide span {
+    font-size: 0.875rem;
+}
 
 
 

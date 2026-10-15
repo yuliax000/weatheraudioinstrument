@@ -7,19 +7,18 @@ const introDialogClose = document.getElementById("introButtonClose");
 const introPages = [
     {
         image: "assets/headphone.png",
-        title: "Use headphones",
-        text: "This website makes sound."
+        title: "Put on your headphones",
+        text: "Get ready to make music!",
     },
     {
-        image: "assets/mouse.png",
-         "assets/Keyboard.png",
-        title: "Play with click and keys",
-        text: "Left keys make sun and rain. Right keys make thunder and wind."
+        image: "assets/keyboard.png",
+        title: "Make weather music!",
+        text: "Click a picture or press a key."
     },
     {
         image: "assets/play.png",
-        title: "Replay",
-        text: "Listen to your music!"
+        title: "Hear your music again!",
+        text: "Click the play button to listen."
     }
 ];
 
@@ -29,7 +28,8 @@ const introImage = document.getElementById("introImage");
 const introTitle = document.getElementById("introTitle");
 const introText = document.getElementById("introText");
 const introSkipButton = document.getElementById("introSkipButton");
-
+const introMouse = document.getElementById("introMouse");
+const introKeyGuide = document.getElementById("introKeyGuide");
 
 
 
@@ -670,8 +670,13 @@ introSkipButton.addEventListener("click", closeIntroDialog);
         introTitle.textContent = page.title;
         introText.textContent = page.text;
 
+        const isSecondPage = introPageIndex === 1;
+
+        introMouse.hidden = !isSecondPage;
+        introKeyGuide.hidden = !isSecondPage;
+
         if (introPageIndex === introPages.length - 1) {
-            introDialogClose.textContent = "Start";
+            introDialogClose.textContent = "Let's play!";
         } else {
             introDialogClose.textContent = "Next";
         }
