@@ -148,6 +148,15 @@ dialog[open] {
     cursor: pointer;
 }
 
+
+#introSkipButton {
+    align-self: flex-end;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+
+
 .introActions {
     display: flex;
     justify-content: center;
