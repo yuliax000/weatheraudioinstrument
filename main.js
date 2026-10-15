@@ -11,7 +11,8 @@ const introPages = [
         text: "This website makes sound."
     },
     {
-        image: "assets/Keyboard.png",
+        image: "assets/mouse.png",
+         "assets/Keyboard.png",
         title: "Play with click and keys",
         text: "Left keys make sun and rain. Right keys make thunder and wind."
     },
@@ -27,6 +28,8 @@ let introPageIndex = 0;
 const introImage = document.getElementById("introImage");
 const introTitle = document.getElementById("introTitle");
 const introText = document.getElementById("introText");
+const introSkipButton = document.getElementById("introSkipButton");
+
 
 
 
@@ -306,6 +309,7 @@ showIntroPage();
 introDialog.showModal();
 //close the dialog
 introDialogClose.addEventListener('click', nextIntroPage);
+introSkipButton.addEventListener("click", closeIntroDialog);
 
     async function nextIntroPage() {
         if (introPageIndex < introPages.length - 1) {
@@ -314,9 +318,8 @@ introDialogClose.addEventListener('click', nextIntroPage);
             return;
         }
 
-        await Tone.start();
-        await Tone.loaded();
-        introDialog.close();
+        await closeIntroDialog();
+
     }
 
 // click to next page
@@ -327,6 +330,7 @@ introDialogClose.addEventListener('click', nextIntroPage);
 
         nextIntroPage();
     });
+
 
     document.addEventListener("keydown", function(event) {
         if (!introDialog.open) {
@@ -673,5 +677,10 @@ introDialogClose.addEventListener('click', nextIntroPage);
         }
     }
 
+async function closeIntroDialog() {
+    await Tone.start();
+    await Tone.loaded();
+    introDialog.close();
+}
 
 
