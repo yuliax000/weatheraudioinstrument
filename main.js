@@ -66,6 +66,10 @@ replayButton.addEventListener("click", replayPerformance);
 stopButton.addEventListener("click", stopReplay);
 clearButton.addEventListener("click", clearPerformance);
 
+const helpButton = document.getElementById("helpButton");
+
+
+
     // slider value binding with hand position
 
 function updateVolumeControl() {
@@ -307,9 +311,20 @@ const drumNotes = [
 // open the dialog
 showIntroPage();
 introDialog.showModal();
-//close the dialog
+
 introDialogClose.addEventListener('click', nextIntroPage);
 introSkipButton.addEventListener("click", closeIntroDialog);
+helpButton.addEventListener("click", function () {
+    if (introDialog.open) {
+        return;
+    }
+
+    introPageIndex = 0;
+    showIntroPage();
+    introDialog.showModal();
+});
+
+
 
     async function nextIntroPage() {
         if (introPageIndex < introPages.length - 1) {
@@ -331,7 +346,7 @@ introSkipButton.addEventListener("click", closeIntroDialog);
         nextIntroPage();
     });
 
-
+    // Binding keyboard to trigger the next page function
     document.addEventListener("keydown", function(event) {
         if (!introDialog.open) {
             return;
@@ -348,14 +363,7 @@ introSkipButton.addEventListener("click", closeIntroDialog);
 
 
 
-// whenever the dialog is closed, run toneInit
-// introDialog.addEventListener("close", toneInit);
-//
-// //////Tone
-// // run to setup our audio system
-// function toneInit(){
-//     synth.connect(Tone.Destination)
-// }
+
 
 // add click events to weather elements
     sunIcon.addEventListener("click", playSun);
@@ -404,7 +412,7 @@ introSkipButton.addEventListener("click", closeIntroDialog);
     });
 
 
-//Visual: create emoji when sections are clicked.
+//Visual: create emoji when sections are clicked.The emojis in this section were replaced with images, so I commented out the original code.
 
 
 // function createFallingEmoji(container, imagePath) {
@@ -429,7 +437,7 @@ introSkipButton.addEventListener("click", closeIntroDialog);
 //
 // }
 
-// let the icons falling from whole sky area
+//Weather phenomena do not occur in separate columns or stay confined to specific areas. To make the icons behave more naturally and better reflect how weather works, letting the icons falling from whole sky area
 
     function createSkyFallingIcon(imagePath, fallClass) {
         const fallingIcon = document.createElement("img");
@@ -536,7 +544,7 @@ introSkipButton.addEventListener("click", closeIntroDialog);
 
     let replayTimeouts = [];
 
-
+    // record performance based on time. Calculate the duration of the performance based on its start and end times.
     function recordPerformanceEvent(weatherName, note, duration) {
         if (performanceStartTime === null) {
             performanceStartTime = Date.now();
@@ -556,6 +564,7 @@ introSkipButton.addEventListener("click", closeIntroDialog);
     function replayPerformance() {
 
         stopReplay();
+        // Store the recorded notes in an array, sorted by their timestamps.
         performanceEvents.forEach(function (event) {
             const timeoutId = setTimeout(function () {
                 playRecordedEvent(event);
@@ -565,7 +574,7 @@ introSkipButton.addEventListener("click", closeIntroDialog);
         });
     }
 
-
+    // Replay the recorded notes stored in the array.
     function playRecordedEvent(event) {
         synth.triggerAttackRelease(event.note, event.duration);
 
@@ -601,7 +610,7 @@ introSkipButton.addEventListener("click", closeIntroDialog);
         performanceStartTime = null;
     }
 
-
+// Trigger both sound and animation simultaneously during play.
     function playSun() {
         const note = pickRandomNote(sunNotes);
         const duration = "4n";
@@ -662,7 +671,7 @@ introSkipButton.addEventListener("click", closeIntroDialog);
     }
 
 
-// intro Dialog function
+// intro Dialog function, added a page-turning feature
     function showIntroPage() {
         const page = introPages[introPageIndex];
 
@@ -675,6 +684,7 @@ introSkipButton.addEventListener("click", closeIntroDialog);
         introMouse.hidden = !isSecondPage;
         introKeyGuide.hidden = !isSecondPage;
 
+        // change button text when turning pages
         if (introPageIndex === introPages.length - 1) {
             introDialogClose.textContent = "Let's play!";
         } else {
